@@ -15,92 +15,20 @@ const controlStatements = [
     'try',
     'throw',
 ];
-
-const paddingAroundControl = controlStatements.flatMap(stmt => [
-    { blankLine: 'always', prev: '*', next: stmt },
-    { blankLine: 'always', prev: stmt, next: '*' },
-]);
+const paddingAroundControl = [
+    ...controlStatements.flatMap(stmt => [
+        { blankLine: 'always', prev: '*', next: stmt },
+        { blankLine: 'always', prev: stmt, next: '*' },
+    ]),
+];
 
 export default defineConfigWithVueTs(
-    // Vue
-    vue.configs['flat/recommended'],
+    vue.configs['flat/essential'],
     vueTsConfigs.recommended,
     {
         name: 'resources/js',
         files: ['**/*.{vue,js,mjs,jsx}'],
     },
-    {
-        ignores: [
-            'vendor',
-            'node_modules',
-            'public',
-            'bootstrap/ssr',
-            'tailwind.config.js',
-            'vite.config.ts',
-            'resources/js/actions/**',
-            'resources/js/components/ui/*',
-            'resources/js/routes/**',
-            'resources/js/wayfinder/**',
-        ],
-    },
-    {
-        rules: {
-            'vue/first-attribute-linebreak': ['error', {
-                singleline: 'beside',
-                multiline: 'beside',
-            }],
-            'vue/html-closing-bracket-newline': ['warn', {
-                singleline: 'never',
-                multiline: 'never',
-                selfClosingTag: {
-                    singleline: 'never',
-                    multiline: 'never',
-                },
-            }],
-            'vue/html-indent': ['error', 4, {
-                attribute: 1,
-                baseIndent: 1,
-                closeBracket: 1,
-                alignAttributesVertically: true,
-                ignores: [],
-            }],
-            'vue/html-self-closing': ['warn', {
-                html: {
-                    void: 'always',
-                    normal: 'any',
-                    component: 'always',
-                },
-                svg: 'always',
-                math: 'always',
-            }],
-            'vue/max-attributes-per-line': ['warn', {
-                singleline: { max: 4 },
-                multiline: { max: 1 },
-            }],
-            'vue/multi-word-component-names': 'off',
-            'vue/multiline-html-element-content-newline': ['error', {
-                ignoreWhenEmpty: true,
-                allowEmptyLines: false,
-            }],
-            'vue/mustache-interpolation-spacing': ['warn', 'always'],
-            'vue/padding-line-between-tags': ['warn', [
-                {
-                    blankLine: 'always',
-                    prev: '*:single-line',
-                    next: '*:multi-line',
-                },
-                {
-                    blankLine: 'always',
-                    prev: '*:multi-line',
-                    next: '*',
-                },
-            ]],
-            'vue/require-default-prop': 'off',
-            'vue/singleline-html-element-content-newline': 'off',
-        },
-    },
-
-    // TypeScript + Import
     {
         plugins: {
             import: importPlugin,
@@ -115,6 +43,7 @@ export default defineConfigWithVueTs(
             },
         },
         rules: {
+            'vue/multi-word-component-names': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/consistent-type-imports': [
                 'error',
@@ -130,35 +59,138 @@ export default defineConfigWithVueTs(
                     alphabetize: { order: 'asc', caseInsensitive: true },
                 },
             ],
-            'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+            'import/consistent-type-specifier-style': [
+                'error',
+                'prefer-top-level',
+            ],
         },
     },
+    {
+        plugins: {
+            '@stylistic': stylistic,
+        },
+        rules: {
+            '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
+            '@stylistic/padding-line-between-statements': [
+                'error',
+                ...paddingAroundControl,
+            ],
+        },
+    },
+    {
+        ignores: [
+            'vendor',
+            'node_modules',
+            'public',
+            'bootstrap/ssr',
+            'tailwind.config.js',
+            'vite.config.ts',
+            'resources/js/actions/**',
+            'resources/js/components/ui/*',
+            'resources/js/routes/**',
+            'resources/js/wayfinder/**',
+        ],
+    },
+    prettier,
+    ...vue.configs['flat/base'],
+    ...vue.configs['flat/essential'],
+    ...vue.configs['flat/strongly-recommended'],
+    ...vue.configs['flat/recommended'],
 
-    // Stylistic
     stylistic.configs.recommended,
     {
         rules: {
-            '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
-            '@stylistic/indent': ['warn', 4, { ignoreComments: true }],
-            '@stylistic/padding-line-between-statements': ['error', ...paddingAroundControl],
+            '@stylistic/indent': ['warn', 4, {
+                ignoreComments: true,
+            }],
             '@stylistic/semi': ['error', 'always'],
         },
     },
 
-    prettier,
+    // Vue
+    {
+        rules: {
+            'vue/multi-word-component-names': 'off',
+            'vue/require-default-prop': 'off',
+            'vue/singleline-html-element-content-newline': 'off',
+            'vue/html-closing-bracket-newline': ['warn', {
+                singleline: 'never',
+                multiline: 'never',
+                selfClosingTag: {
+                    singleline: 'never',
+                    multiline: 'never',
+                },
+            }],
+
+            'vue/max-attributes-per-line': ['warn', {
+                singleline: { max: 4 },
+                multiline: { max: 1 },
+            }],
+
+            'vue/html-self-closing': ['warn', {
+                html: {
+                    void: 'always',
+                    normal: 'any',
+                    component: 'always',
+                },
+                svg: 'always',
+                math: 'always',
+            }],
+
+            'vue/first-attribute-linebreak': [
+                'error',
+                {
+                    singleline: 'beside',
+                    multiline: 'beside',
+                },
+            ],
+            'vue/padding-line-between-tags': ['warn', [
+                {
+                    blankLine: 'always',
+                    prev: '*:single-line',
+                    next: '*:multi-line',
+                },
+                {
+                    blankLine: 'always',
+                    prev: '*:multi-line',
+                    next: '*',
+                },
+            ]],
+
+            'vue/html-indent': [
+                'error',
+                4,
+                {
+                    attribute: 1,
+                    baseIndent: 1,
+                    closeBracket: 1,
+                    alignAttributesVertically: true,
+                    ignores: [],
+                },
+            ],
+            'vue/multiline-html-element-content-newline': ['error', {
+                ignoreWhenEmpty: true,
+                allowEmptyLines: false,
+            }],
+            'vue/mustache-interpolation-spacing': ['warn', 'always'],
+        },
+    },
 
     // JSDoc
     jsdoc({
         config: 'flat/recommended',
-        rules: {
+        rules:
+        {
+            'jsdoc/require-jsdoc': ['off'],
+            'jsdoc/require-param': ['error'],
             'jsdoc/no-blank-blocks': ['error'],
             'jsdoc/require-description-complete-sentence': ['error'],
-            'jsdoc/require-jsdoc': ['off'],
-            'jsdoc/require-param': ['off'],
             'jsdoc/require-param-description': ['off'],
-            'jsdoc/require-param-type': ['error'],
-            'jsdoc/require-returns': ['off'],
+            'jsdoc/require-param-description': ['off'],
             'jsdoc/require-returns-description': ['off'],
+            'jsdoc/require-param': ['off'],
+            'jsdoc/require-returns': ['off'],
+            'jsdoc/require-param-type': ['error'],
         },
     }),
 );
