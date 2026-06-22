@@ -52,13 +52,11 @@ export default defineConfigWithVueTs(
                     fixStyle: 'separate-type-imports',
                 },
             ],
-            'import/order': [
-                'error',
-                {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-                    alphabetize: { order: 'asc', caseInsensitive: true },
-                },
-            ],
+            // Eslint v10 support coming soon: https://github.com/import-js/eslint-plugin-import/issues/3227
+            // 'import/order': ['error', {
+            //     groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+            //     alphabetize: { order: 'asc', caseInsensitive: true },
+            // }],
             'import/consistent-type-specifier-style': [
                 'error',
                 'prefer-top-level',
@@ -110,6 +108,7 @@ export default defineConfigWithVueTs(
     // Vue
     {
         rules: {
+            '@typescript-eslint/no-unused-vars': 'off',
             'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
             'vue/singleline-html-element-content-newline': 'off',

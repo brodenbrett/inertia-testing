@@ -7,10 +7,11 @@ use Inertia\Inertia;
 Route::inertia('/', 'Home')->name('home');
 
 Route::get('/users', function () {
-    return Inertia::render('Users', [
-        'time' => now()->format('l, F jS Y, g:i A')
-    ]);
-})->name('users');
+        return Inertia::render('Users', [
+            'time' => now()->format('l, F jS Y, g:i A')
+        ]);
+    })
+    ->name('users');
 
 Route::inertia('/settings', 'Settings')->name('settings');
 

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider

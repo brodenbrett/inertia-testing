@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { route as routeFn } from '../../../vendor/tightenco/ziggy';
+import { Link, usePage } from '@inertiajs/vue3';
+import { route as getRoute } from '../../../vendor/tightenco/ziggy';
 
-const props = defineProps({ route: String });
+const { route } = defineProps({
+    /** The name of the route to request. */
+    route: String,
+});
+const page = usePage();
+const href = getRoute(route ?? '');
+const isActive = page.props.routeName === route;
 </script>
 
 <template>
-    <Link :class="{'font-bold': $page.props.routeName === route}" :href="routeFn(props.route ?? '')">
+    <Link :class="{'bg-primary': isActive}" :href>
         <slot></slot>
     </Link>
 </template>
