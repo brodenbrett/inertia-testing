@@ -107,6 +107,12 @@ export default defineConfigWithVueTs(
     {
         rules: {
             '@typescript-eslint/no-unused-vars': 'off',
+
+            // allow in order to escape HTML entities
+            'vue/no-v-text-v-html-on-component': 'off',
+            'vue/no-v-html': 'off',
+
+            'vue/block-lang': 'off',
             'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
             'vue/singleline-html-element-content-newline': 'off',
