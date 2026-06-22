@@ -12,26 +12,8 @@
 
         <div class="navbar-end">
             <ul class="menu menu-horizontal px-1 space-x-2">
-                <li>
-                    <NavLink route="home">Home</NavLink>
-                </li>
-
-                <li>
-                    <NavLink route="users">Users</NavLink>
-                </li>
-
-                <li>
-                    <NavLink route="settings">Settings</NavLink>
-                </li>
-
-                <li>
-                    <NavLink route="logout"
-                             href="/logout"
-                             method="post"
-                             as="button"
-                             :data="{foo: 'bar'}">
-                        Logout
-                    </NavLink>
+                <li v-for="route in $page.props.navRoutes" :key="route.name">
+                    <NavLink :route="route.name">{{ route.label }}</NavLink>
                 </li>
             </ul>
         </div>
