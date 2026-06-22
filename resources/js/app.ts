@@ -1,4 +1,4 @@
-import { createInertiaApp, Link } from '@inertiajs/vue3';
+import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import NavLink from './shared/NavLink.vue';
 import AppLayout from './shared/AppLayout.vue';
@@ -11,6 +11,7 @@ createInertiaApp({
         app.component('Link', Link);
         app.component('NavLink', NavLink);
         app.component('AppLayout', AppLayout);
+        app.component('Head', Head);
     },
     layout: () => AppLayout,
     progress: {
