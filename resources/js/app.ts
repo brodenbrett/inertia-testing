@@ -1,8 +1,8 @@
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
 import { ZiggyVue } from 'ziggy-js';
-import AppLayout from './shared/AppLayout.vue';
-import RouterLink from './shared/RouterLink.vue';
+import AppLayout from './components/Shared/AppLayout.vue';
+import RouterLink from './components/Shared/RouterLink.vue';
 import { Ziggy } from './ziggy';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

@@ -32,7 +32,7 @@ class UsersController extends Controller
                 'created_at' => $user->created_at->format('l, F jS Y, g:i A'),
             ]);
 
-        return Inertia::render('Users', [
+        return Inertia::render('Users/Index', [
             'users' => $users,
             'filters' => $validated,
         ]);

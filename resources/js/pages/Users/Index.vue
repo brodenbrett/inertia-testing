@@ -2,8 +2,8 @@
 import { router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { debounce } from '@/utils/debounce.js';
-import Pagination from '../shared/Pagination.vue';
-import TheUsers from '../shared/TheUsers.vue';
+import Pagination from '@/components/Shared/Pagination.vue';
+import TheUsers from '@/components/Users/TheUsers.vue';
 
 const props = defineProps({
     users: Object,
