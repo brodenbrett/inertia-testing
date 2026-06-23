@@ -3,6 +3,12 @@ import { createPinia } from 'pinia';
 import NavLink from './shared/NavLink.vue';
 import AppLayout from './shared/AppLayout.vue';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import { Ziggy } from './ziggy';
+
+// Fix undefined property error in vite
+if (typeof globalThis !== 'undefined' && !(globalThis as GlobalThis).Ziggy) {
+    (globalThis as GlobalThis).Ziggy = Ziggy;
+}
 
 createInertiaApp({
     title: title => (title ? `${title} - ${appName}` : appName),
