@@ -13,7 +13,10 @@ const props = defineProps({
 const search = ref(props.filters.q || '');
 watch(search, debounce((q) => {
     const data = q ? { q } : {};
-    router.get('/users', data, { preserveState: true });
+    router.get('/users', data, {
+        preserveState: true,
+        replace: true,
+    });
 }));
 
 </script>

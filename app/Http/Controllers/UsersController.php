@@ -18,9 +18,9 @@ class UsersController extends Controller
         $searchTerm = $validated['q'] ?? null;
 
         $users = User::query()
-            ->when($searchTerm, function ($query, $q) {
-                $query->whereLike('name', "%{$q}%");
-                $query->orWhereLike('email', "%{$q}%");
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->whereLike('name', "%{$searchTerm}%");
+                $query->orWhereLike('email', "%{$searchTerm}%");
             })
             ->paginate(10)
             ->withQueryString()
