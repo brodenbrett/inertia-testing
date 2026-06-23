@@ -1,12 +1,5 @@
 <script setup>
-import { usePagination } from '@/compostables/usePagination';
-
-const props = defineProps({ users: Object });
-
-const paginator = usePagination(props.users);
-
-const links = paginator.links;
-
+defineProps({ users: Object });
 </script>
 <template>
     <Head title="Users" />
@@ -26,7 +19,7 @@ const links = paginator.links;
 
             <tbody>
                 <!-- row 1 -->
-                <tr v-for="user in paginator" :key="user.id">
+                <tr v-for="user in users.data" :key="user.id">
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.created_at }}</td>
@@ -37,14 +30,14 @@ const links = paginator.links;
 
     <div class="w-full flex mt-4 justify-center">
         <div class="join">
-            <Component :is="link.url ? 'Link' : 'span'"
-                       v-for="link in links"
-                       :key="link.label"
-                       :href="link.url"
-                       preserve-scroll
-                       class="join-item btn"
-                       :class="{ 'btn-disabled text-gray-500': ! link.url, 'btn-primary' : link.active }"
-                       v-html="link.label" />
+            <template v-for="link in users.links" :key="link.label">
+                <component :is="link.url ? 'Link' : 'span'"
+                           :href="link.url"
+                           class="join-item btn btn-ghost"
+                           :class="{ 'text-gray-500': !link.url, 'btn-primary': link.active }">
+                    <span v-html="link.label"></span>
+                </component>
+            </template>
         </div>
     </div>
 </template>
