@@ -3,6 +3,7 @@ import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescri
 import prettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import { jsdoc } from 'eslint-plugin-jsdoc';
+import unusedImports from 'eslint-plugin-unused-imports';
 import vue from 'eslint-plugin-vue';
 
 const controlStatements = [
@@ -52,11 +53,10 @@ export default defineConfigWithVueTs(
                     fixStyle: 'separate-type-imports',
                 },
             ],
-            // Eslint v10 support coming soon: https://github.com/import-js/eslint-plugin-import/issues/3227
-            // 'import/order': ['error', {
-            //     groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-            //     alphabetize: { order: 'asc', caseInsensitive: true },
-            // }],
+            'import/order': ['error', {
+                groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                alphabetize: { order: 'asc', caseInsensitive: true },
+            }],
             'import/consistent-type-specifier-style': [
                 'error',
                 'prefer-top-level',
@@ -107,6 +107,7 @@ export default defineConfigWithVueTs(
     {
         rules: {
             '@typescript-eslint/no-unused-vars': 'off',
+            '@typescript-eslint/require-param-type': 'off',
 
             // allow in order to escape HTML entities
             'vue/no-v-text-v-html-on-component': 'off',
@@ -203,4 +204,16 @@ export default defineConfigWithVueTs(
             'jsdoc/require-param-type': ['error'],
         },
     }),
+
+    // Unused imports
+    {
+        plugins: {
+            'unused-imports': unusedImports,
+        },
+        rules: {
+            'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+            'unused-imports/no-unused-imports': 'warn',
+            'unused-imports/no-unused-vars': ['warn'],
+        },
+    },
 );
