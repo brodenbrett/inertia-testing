@@ -1,9 +1,10 @@
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { createPinia } from 'pinia';
+import { ZiggyVue } from 'ziggy-js';
 import AppLayout from './shared/AppLayout.vue';
-import NavLink from './shared/NavLink.vue';
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import RouterLink from './shared/RouterLink.vue';
 import { Ziggy } from './ziggy';
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 // Fix undefined property error in vite
 if (typeof globalThis !== 'undefined' && !(globalThis as GlobalThis).Ziggy) {
@@ -14,8 +15,9 @@ createInertiaApp({
     title: title => (title ? `${title} - ${appName}` : appName),
     withApp(app) {
         app.use(createPinia());
+        app.use(ZiggyVue);
         app.component('Link', Link);
-        app.component('NavLink', NavLink);
+        app.component('RouterLink', RouterLink);
         app.component('AppLayout', AppLayout);
         app.component('Head', Head);
     },

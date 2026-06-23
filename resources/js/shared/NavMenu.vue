@@ -13,7 +13,7 @@
         <div class="navbar-end">
             <ul class="menu menu-horizontal px-1 space-x-2">
                 <li v-for="route in $page.props.navRoutes" :key="route.name">
-                    <NavLink :route="route.name">{{ route.label }}</NavLink>
+                    <RouterLink :to="route.name">{{ route.label }}</RouterLink>
                 </li>
             </ul>
         </div>

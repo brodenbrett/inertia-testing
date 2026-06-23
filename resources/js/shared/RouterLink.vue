@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { route as ziggyRoute } from '../../../vendor/tightenco/ziggy';
 
-const { route } = defineProps({
+const { to } = defineProps({
     /** The name of the route to request. */
-    route: String,
+    to: { type: String, default: 'home' },
 });
+
 const page = usePage();
-const href = computed(() => ziggyRoute(route ?? '') || '#');
-const isActive = computed(() => page.props.route?.name === route);
+const href = computed(() => route(to));
+const isActive = computed(() => page.props.route?.name === to);
 </script>
 
 <template>
