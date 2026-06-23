@@ -6,7 +6,7 @@ declare module '@inertiajs/core' {
         name?: string
         time?: string
         auth?: { user?: unknown } | null
-        route?: unknown
+        route?: { name: string, label: string, url: string }
         routeName?: string | null
         sidebarOpen?: boolean
     }

@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -44,19 +43,14 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'navRoutes' => collect(['home', 'settings', 'users', 'logout'])
+            'navRoutes' => collect(['home', 'users', 'settings', 'logout'])
                 ->map(function ($name) {
                     $route = Route::getRoutes()->getByName($name);
 
-                    return [
-                        'name' => $route->getName(),
-                        'label' => Str::headline($route->getName()),
-                        'url' => $route->uri,
-                    ];
+                    return \App\Objects\Route::fromIlluminateRoute($route);
                 })
                 ->filter(),
-            'route' => Route::current(),
-            'routeName' => Route::currentRouteName(),
+            'route' => \App\Objects\Route::fromCurrent(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

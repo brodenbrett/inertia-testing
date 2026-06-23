@@ -9,7 +9,7 @@ const { route } = defineProps({
 });
 const page = usePage();
 const href = computed(() => ziggyRoute(route ?? '') || '#');
-const isActive = computed(() => page.props.routeName === route);
+const isActive = computed(() => page.props.route?.name === route);
 </script>
 
 <template>
