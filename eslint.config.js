@@ -7,7 +7,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import vue from 'eslint-plugin-vue';
 
 const controlStatements = [
-    'if',
+    'multiline-block-like',
     'return',
     'for',
     'while',
@@ -70,7 +70,7 @@ export default defineConfigWithVueTs(
         rules: {
             '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
             '@stylistic/padding-line-between-statements': [
-                'error',
+                'warn',
                 ...paddingAroundControl,
             ],
         },
