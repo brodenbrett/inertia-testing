@@ -1,9 +1,9 @@
 <script setup>
 import { router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
-import { debounce } from '@/utils/debounce.js';
 import Pagination from '@/components/Shared/Pagination.vue';
 import TheUsers from '@/components/Users/TheUsers.vue';
+import { debounce } from '@/utils/debounce.js';
 
 const props = defineProps({
     users: Object,
@@ -33,6 +33,8 @@ watch(search, debounce((q) => {
                        placeholder="Search by name or email"
                        class="input input-bordered w-75" />
             </div>
+
+            <RouterLink to="users.create" class="btn btn-primary">Create User</RouterLink>
         </div>
 
         <TheUsers :users="users" />
