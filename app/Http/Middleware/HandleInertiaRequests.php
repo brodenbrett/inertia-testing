@@ -43,14 +43,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'navRoutes' => collect(['home', 'users', 'settings', 'logout'])
-                ->map(function ($name) {
-                    $route = Route::getRoutes()->getByName($name);
-
-                    return \App\Objects\Route::fromIlluminateRoute($route);
-                })
-                ->filter(),
-            'route' => \App\Objects\Route::fromCurrent(),
+            'route_name' => Route::currentRouteName(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

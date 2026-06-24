@@ -9,7 +9,7 @@ const { to } = defineProps({
 
 const page = usePage();
 const href = computed(() => route(to));
-const isActive = computed(() => page.props.route?.name === to);
+const isActive = computed(() => page.props.route_name === to);
 </script>
 
 <template>
